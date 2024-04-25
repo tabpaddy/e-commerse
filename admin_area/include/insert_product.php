@@ -2,6 +2,43 @@
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 include('../../includes/connect.php');
+if(isset($_POST['insert_product'])){
+    $product_title=$_POST['product_title'];
+    $product_description=$_POST['description'];
+    $product_keyword=$_POST['keyword'];
+    $product_category=$_POST['product_category'];
+    $product_brand=$_POST['product_brand'];
+    $product_price=$_POST['product_price'];
+    $product_status='true';
+
+    //accessing images
+    $product_image1=$_FILES['product_image1']['name'];
+    $product_image2=$_FILES['product_image2']['name'];
+    $product_image3=$_FILES['product_image3']['name'];
+
+    // accessing image tmp name
+    $tmp_image1=$_FILES['product_image1']['tmp_name'];
+    $tmp_image2=$_FILES['product_image2']['tmp_name'];
+    $tmp_image3=$_FILES['product_image3']['tmp_name'];
+
+    // checking empty condition
+    if($product_title=='' or $product_description=='' or $product_keyword=='' or $product_category=='' or $product_brand=='' or $product_price=='' or $product_image1=='' or $product_image2=='' or $product_image3==''){
+        echo "<script>alert('please fill all the available fields')</script>";
+        exit();
+    }else{
+        move_uploaded_file($tmp_image1,"../product_images/$product_image1");
+        move_uploaded_file($tmp_image2,"../product_images/$product_image2");
+        move_uploaded_file($tmp_image3,"../product_images/$product_image3");
+
+        //insert query
+        $sql="INSERT INTO products (product_title,product_description,product_keyword,category_id,brand_id,product_image1,product_image2,product_image3,product_price,date,status) VALUES ('$product_title', '$product_description', '$product_keyword', '$product_category', '$product_brand', '$product_image1', '$product_image2', '$product_image3', '$product_price',NOW(), '$product_status')";
+        $result =mysqli_query($con, $sql);
+        if($result){
+            echo "<script>alert('Successfully inserted')</script>";
+        }
+    }
+
+}
 
 
 ?>
@@ -40,7 +77,7 @@ include('../../includes/connect.php');
 
             <!-- Categories -->
             <div class="form-outline mb-4 w-50 m-auto">
-                <select name="product_category" id="" class="form-select">
+                <select name="product_category" id="" class="form-select" required>
                     <option value="">Select a category</option>
                     <?php
                         $sql="SELECT * FROM categories";
@@ -58,12 +95,18 @@ include('../../includes/connect.php');
 
             <!-- Brands -->
             <div class="form-outline mb-4 w-50 m-auto">
-                <select name="product_brand" id="" class="form-select">
+                <select name="product_brand" id="" class="form-select" required>
                     <option value="">Select a brand</option>
-                    <option value="">brand1</option>
-                    <option value="">brand1</option>
-                    <option value="">brand1</option>
-                    <option value="">brand1</option>
+                    <?php
+                        $sql="SELECT * FROM brands";
+                        $result=mysqli_query($con, $sql);
+                        while($row=mysqli_fetch_assoc($result)){
+                            $brand_title = $row['brand_title'];
+                            $brand_id = $row['brand_id'];
+                            echo "<option value='$brand_id'>$brand_title</option>";
+                        }
+
+                    ?>
                 </select>
             </div>
 
@@ -86,7 +129,7 @@ include('../../includes/connect.php');
             <!-- price -->
             <div class="form-outline mb-4 w-50 m-auto">
                 <label for="price" class="form-label">Product Price</label>
-                <input type="text" name="price"  id="price" class="form-control" placeholder="Enter product price" autocomplete="off" required>
+                <input type="text" name="product_price"  id="price" class="form-control" placeholder="Enter product price" autocomplete="off" required>
             </div>
 
             <!-- price -->

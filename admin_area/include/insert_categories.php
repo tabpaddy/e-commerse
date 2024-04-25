@@ -1,6 +1,6 @@
 <?php
 
-include('../../includes/connect.php');
+include('../includes/connect.php');
 if(isset($_POST['insert_cat'])){
     $category_title=$_POST['cat_title'];
 
