@@ -12,6 +12,8 @@ function getproduct(){
         // condition to check isset or not
         if(!isset($_GET['category'])){
         if(!isset($_GET['brand'])){
+        if(!isset($_GET['search_data_product'])){
+        if(!isset($_GET['search_data'])){
                         $result_products= mysqli_query($con, $sql);
                         while($row=mysqli_fetch_assoc($result_products)){
                             $product_id=$row['product_id'];
@@ -35,7 +37,7 @@ function getproduct(){
                                 </div>
                                 <div class='card-body'>
                                     <a href='#' class='btn btn-info'>Add to cart</a>
-                                    <a href='#' class='btn btn-secondary'>View more</a>
+                                    <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
                                 </div>
                             </div>
                             </div>";
@@ -43,6 +45,8 @@ function getproduct(){
 }
 }
 }
+        }
+    }
 
 // getting all product
 function get_all_product(){
@@ -52,6 +56,8 @@ function get_all_product(){
         // condition to check isset or not
         if(!isset($_GET['category'])){
         if(!isset($_GET['brand'])){
+        if(!isset($_GET['search_data_product'])){
+        if(!isset($_GET['search_data'])){
                         $result_products= mysqli_query($con, $sql);
                         while($row=mysqli_fetch_assoc($result_products)){
                             $product_id=$row['product_id'];
@@ -75,11 +81,13 @@ function get_all_product(){
                                 </div>
                                 <div class='card-body'>
                                     <a href='#' class='btn btn-info'>Add to cart</a>
-                                    <a href='#' class='btn btn-secondary'>View more</a>
+                                    <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
                                 </div>
                             </div>
                             </div>";
                         }
+}
+}
 }
 }
 }
@@ -119,7 +127,7 @@ function get_all_product(){
                                                         </div>
                                                         <div class='card-body'>
                                                             <a href='#' class='btn btn-info'>Add to cart</a>
-                                                            <a href='#' class='btn btn-secondary'>View more</a>
+                                                            <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
                                                         </div>
                                                     </div>
                                                     </div>";
@@ -161,7 +169,7 @@ function get_all_product(){
                                                         </div>
                                                         <div class='card-body'>
                                                             <a href='#' class='btn btn-info'>Add to cart</a>
-                                                            <a href='#' class='btn btn-secondary'>View more</a>
+                                                            <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
                                                         </div>
                                                     </div>
                                                     </div>";
@@ -205,4 +213,108 @@ function get_all_product(){
                         </li>";
                         }
                         }
+
+
+                        // searching products function
+                        function search_product(){
+                            global $con;
+                            if(isset($_GET['search_data_product'])){
+                                $search_data_value=$_GET['search_data'];
+                        $sql = "SELECT * FROM products WHERE product_keyword LIKE '%$search_data_value%'";  // using "%%" at anywhere the value its in the word it should be display 
+                        $result_products= mysqli_query($con, $sql);
+                        $num_of_rows=mysqli_num_rows($result_products);
+                                if($num_of_rows==0){
+                                    echo "<h2 class='text-center text-danger'>No results match. No products found on this category!</h2>";
+                                }
+                        while($row=mysqli_fetch_assoc($result_products)){
+                            $product_id=$row['product_id'];
+                            $product_title=$row['product_title'];
+                            $product_description=$row['product_description'];
+                            $product_keyword=$row['product_keyword'];
+                            $category_id=$row['category_id'];
+                            $brand_id=$row['brand_id'];
+                            $product_image1=$row['product_image1'];
+                            $product_image2=$row['product_image2'];
+                            $product_image3=$row['product_image3'];
+                            $product_price=$row['product_price'];
+                            // $date=$row['date'];
+                            // $status=$row['status'];
+                            echo "<div class='col-md-4 mb-3'>
+                            <div class='card'>
+                                <img src='admin_area/product_images/$product_image1' class='card-img-top cartImg pt-2' alt='$product_title'>
+                                <div class='card-body'>
+                                    <h5 class='card-title'>$product_title</h5>
+                                    <p class='card-text'>$product_description</p>
+                                </div>
+                                <div class='card-body'>
+                                    <a href='#' class='btn btn-info'>Add to cart</a>
+                                    <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
+                                </div>
+                            </div>
+                            </div>";
+                        }
+}
+}
+
+// view details function
+function viewdetails(){
+
+    global $con;
+
+    // condition to check isset or not
+    if(isset($_GET['product_id'])){
+    if(!isset($_GET['category'])){
+    if(!isset($_GET['brand'])){
+    if(!isset($_GET['search_data_product'])){
+    if(!isset($_GET['search_data'])){
+        $product_id = $_GET['product_id'];
+        $sql = "SELECT * FROM products WHERE product_id=$product_id";
+                    $result_products= mysqli_query($con, $sql);
+                    while($row=mysqli_fetch_assoc($result_products)){
+                        $product_id=$row['product_id'];
+                        $product_title=$row['product_title'];
+                        $product_description=$row['product_description'];
+                        $product_keyword=$row['product_keyword'];
+                        $category_id=$row['category_id'];
+                        $brand_id=$row['brand_id'];
+                        $product_image1=$row['product_image1'];
+                        $product_image2=$row['product_image2'];
+                        $product_image3=$row['product_image3'];
+                        $product_price=$row['product_price'];
+                        // $date=$row['date'];
+                        // $status=$row['status'];
+                        echo "<div class='col-md-4 mb-3'>
+                        <div class='card'>
+                            <img src='admin_area/product_images/$product_image1' class='card-img-top cartImg pt-2' alt='$product_title'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>$product_title</h5>
+                                <p class='card-text'>$product_description</p>
+                            </div>
+                            <div class='card-body'>
+                                <a href='#' class='btn btn-info'>Add to cart</a>
+                                <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
+                            </div>
+                        </div>
+                        </div>
+                        <div class='col-md-8'>
+                        <!-- related images -->
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <h4 class='text-center text-info mb-5'>Related product image</h4> 
+                            </div>
+                            <div class='col-md-6'>
+                            <img src='admin_area/product_images/$product_image2' class='card-img-top cartImg pt-2' alt='$product_title'>
+                            </div>
+                            <div class='col-md-6'>
+                            <img src='admin_area/product_images/$product_image3' class='card-img-top cartImg pt-2' alt='$product_title'>
+                            </div>
+                        </div>
+                    </div>";
+                    }   
+}
+}
+}
+    }
+}
+}
 ?>
