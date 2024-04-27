@@ -80,10 +80,11 @@ include('functions/common_function.php');
             <div class="col-md-10">
                 <!-- products -->
                 <div class="row">
+                    
                     <!-- fetching products -->
                     <?php
                     //calling function
-                        getproduct();
+                    viewdetails();
                         get_unique_categories();
                         get_unique_brands()
                     ?>
