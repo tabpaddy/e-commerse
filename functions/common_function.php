@@ -36,7 +36,7 @@ function getproduct(){
                                     <p class='card-text'>$product_description</p>
                                 </div>
                                 <div class='card-body'>
-                                    <a href='#' class='btn btn-info'>Add to cart</a>
+                                    <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
                                     <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@ function get_all_product(){
                                     <p class='card-text'>$product_description</p>
                                 </div>
                                 <div class='card-body'>
-                                    <a href='#' class='btn btn-info'>Add to cart</a>
+                                <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
                                     <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@ function get_all_product(){
                                                             <p class='card-text'>$product_description</p>
                                                         </div>
                                                         <div class='card-body'>
-                                                            <a href='#' class='btn btn-info'>Add to cart</a>
+                                                        <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
                                                             <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
                                                         </div>
                                                     </div>
@@ -168,7 +168,7 @@ function get_all_product(){
                                                             <p class='card-text'>$product_description</p>
                                                         </div>
                                                         <div class='card-body'>
-                                                            <a href='#' class='btn btn-info'>Add to cart</a>
+                                                        <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
                                                             <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
                                                         </div>
                                                     </div>
@@ -247,7 +247,7 @@ function get_all_product(){
                                     <p class='card-text'>$product_description</p>
                                 </div>
                                 <div class='card-body'>
-                                    <a href='#' class='btn btn-info'>Add to cart</a>
+                                <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
                                     <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
                                 </div>
                             </div>
@@ -291,8 +291,8 @@ function viewdetails(){
                                 <p class='card-text'>$product_description</p>
                             </div>
                             <div class='card-body'>
-                                <a href='#' class='btn btn-info'>Add to cart</a>
-                                <a href='product_details.php?product_id=$product_id' class='btn btn-secondary'>View more</a>
+                            <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
+                                <a href='index.php' class='btn btn-secondary'>Go Home</a>
                             </div>
                         </div>
                         </div>
@@ -316,5 +316,46 @@ function viewdetails(){
 }
     }
 }
+}
+
+
+//get ip_address function
+function getIPAddress() {
+    // whether ip is from the share internet
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    }// whether ip is from the proxy
+    elseif(!empty($_SERVER['http_X_FORWARDED_FOR'])){
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }// whether ip is from the remote address
+    else{
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
+}
+// $ip = getIPAddress();
+// echo 'User Real IP Address - '.$ip;
+
+
+// cart function
+function cart(){
+    global $con;
+    if(isset($_GET['add_to_cart'])){   
+        $ip = getIPAddress();
+        $get_product_id=$_GET['add_to_cart'];
+        $sql = "SELECT * FROM cart_details WHERE ip_address='$ip' AND product_id=$get_product_id";
+        $result_cart= mysqli_query($con, $sql);
+        $num_of_rows=mysqli_num_rows($result_cart);
+        if($num_of_rows > 0){
+            // echo "<h2 class='text-center text-danger'>No results match. No products found on this category!</h2>";
+            echo "<script>alert('This item is already present inside the cart')</script>";
+            echo "<script>window.open('index.php','_self')</script>";
+        }else{
+            $sql2 = "INSERT INTO cart_details (product_id, Ip_address, quantity) VALUES ($get_product_id, '$ip', 0)";
+            $result_cart= mysqli_query($con, $sql2);
+            echo "<script>alert('item is added to cart')</script>";
+            echo "<script>window.open('index.php','_self')</script>";
+        }
+    }
 }
 ?>
