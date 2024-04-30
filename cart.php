@@ -1,7 +1,11 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // connect filr
 include('includes/connect.php');
 include('functions/common_function.php');
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -84,6 +88,7 @@ include('functions/common_function.php');
         <!-- fourth child -->
         <div class="container">
             <div class="row">
+                <form action="" method="post">
                 <table class="table table-bordered text-center">
                     <thead>
                         <tr>
@@ -98,7 +103,7 @@ include('functions/common_function.php');
                     <tbody>
                                             <!-- php code to display cart data -->
                     <?php
-                                global $con;
+                            
                                 $ip = getIPAddress();
                                 $total=0;
                                 $sql = "SELECT * FROM cart_details WHERE ip_address='$ip'";
@@ -122,16 +127,31 @@ include('functions/common_function.php');
 
                     ?>
                         <tr>
-                            <td><?php echo $product_title ?></td>
-                            <td><img src="./admin_area/product_images/<?php echo $product_img?>" alt="" class="cartImg2" ></td>
-                            <td><input type="text" name="" id="" class="form-input w-50"></td>
-                            <td><?php echo $product_price ?></td>
-                            <td><input type="checkbox" name="" id=""></td>
-                            <td>
-                                <button class="btn btn-info mx-3 px-3">Update</button>
-                                <button class="btn btn-info px-3">Remove</button>
-                            </td>
-                        </tr>
+                        <?php
+                                $ip = getIPAddress();
+                                if(isset($_POST['updatecart'])){
+                                    $quantity = $_POST['quantity'];
+                                    $sql2 = "UPDATE cart_details SET quantity=$quantity WHERE ip_address='$ip'";
+                                    $results = mysqli_query($con, $sql2);
+                                    $formattedTotal = (int)str_replace(',', '', $formattedTotal) * $quantity; // Convert to float after removing commas
+            // $total_price *= $quantity; // Calculate total price based on updated quantity
+                                    // $total_price = $total*$quantity ;
+                                    
+                                    $formattedTotal = number_format($formattedTotal);
+                                    echo "<script>alert('updated successful')</script>";
+                                }
+
+                            ?>
+    <td><?php echo $product_title ?></td>
+    <td><img src="./admin_area/product_images/<?php echo $product_img ?>" alt="" class="cartImg2"></td>
+    <td><input type="text" name="quantity" class="form-input w-50" value="<?php echo $row['quantity']; ?>"></td>
+    <td><?php echo $product_price ?></td>
+    <td><input type="checkbox" name="remove[]" value=""></td>
+    <td>
+        <input type="submit" value="Update cart" class="btn btn-info mx-3 px-3" name="updatecart">
+        <input type="submit" value="Remove cart" class="btn btn-info mx-3 px-3">
+    </td>
+</tr>
                         <?php
                                                                 }
                                                             }
@@ -144,8 +164,10 @@ include('functions/common_function.php');
                     <a href="index.php"><input type="submit" class="btn btn-info mx-2 px-3" value="Continue Shopping" name=""></a>
                     <a href="#"><input type="submit" class="btn btn-secondary mx-2 px-3" value="Checkout" name=""></a>
                 </div>
+                </form>
             </div>
         </div>
+        
 
 
 

@@ -384,27 +384,30 @@ function cart_item(){
     }
 
     // total price function
-    function total_cart_price(){
+    function total_cart_price() {
         global $con;
         $ip = getIPAddress();
-        $total=0;
+        $total = 0;
+    
         $sql = "SELECT * FROM cart_details WHERE ip_address='$ip'";
         $result = mysqli_query($con, $sql);
+    
         while ($row = mysqli_fetch_array($result)) {
             $product_id = $row['product_id'];
-            $select_products="SELECT * FROM products WHERE product_id='$product_id'";
-            $result_products=mysqli_query($con, $select_products);
+            $quantity = $row['quantity'];
+    
+            $select_products = "SELECT * FROM products WHERE product_id='$product_id'";
+            $result_products = mysqli_query($con, $select_products);
+    
             while ($row_product_price = mysqli_fetch_array($result_products)) {
-                $product_price=array($row_product_price['product_price']);
-                foreach($product_price as $product_price){
-                    //remove the coma and convert to an integer
-                    $product_price_int=(int)str_replace(',', '', $product_price);
-                }
-                // $product_price_sum=array_sum($product_price_int);
-                $total+=$product_price_int;
-                $formattedTotal = number_format($total);
+                $product_price = (int) str_replace(',', '', $row_product_price['product_price']);
+                $total += $product_price * $quantity; // Calculate total price for each item
             }
         }
+    
+        // Format the total price with commas for display
+        $formattedTotal = number_format($total);
+    
         echo $formattedTotal;
     }
 ?>
