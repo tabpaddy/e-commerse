@@ -26,6 +26,7 @@ function getproduct(){
                             $product_image2=$row['product_image2'];
                             $product_image3=$row['product_image3'];
                             $product_price=$row['product_price'];
+                            $formatted_price=number_format($product_price);
                             // $date=$row['date'];
                             // $status=$row['status'];
                             echo "<div class='col-md-4 mb-3'>
@@ -34,7 +35,7 @@ function getproduct(){
                                 <div class='card-body'>
                                     <h5 class='card-title'>$product_title</h5>
                                     <p class='card-text'>$product_description</p>
-                                    <p class='card-text'>Price$product_price/-</p>
+                                    <p class='card-text'>Price$formatted_price;/-</p>
                                 </div>
                                 <div class='card-body'>
                                     <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
@@ -71,6 +72,7 @@ function get_all_product(){
                             $product_image2=$row['product_image2'];
                             $product_image3=$row['product_image3'];
                             $product_price=$row['product_price'];
+                            $formatted_price=number_format($product_price);
                             // $date=$row['date'];
                             // $status=$row['status'];
                             echo "<div class='col-md-4 mb-3'>
@@ -79,7 +81,7 @@ function get_all_product(){
                                 <div class='card-body'>
                                     <h5 class='card-title'>$product_title</h5>
                                     <p class='card-text'>$product_description</p>
-                                    <p class='card-text'>Price$product_price/-</p>
+                                    <p class='card-text'>Price$formatted_price;/-</p>
                                 </div>
                                 <div class='card-body'>
                                 <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
@@ -118,6 +120,7 @@ function get_all_product(){
                                                     $product_image2=$row['product_image2'];
                                                     $product_image3=$row['product_image3'];
                                                     $product_price=$row['product_price'];
+                                                    $formatted_price=number_format($product_price);
                                                     // $date=$row['date'];
                                                     // $status=$row['status'];
                                                     echo "<div class='col-md-4 mb-3'>
@@ -126,7 +129,7 @@ function get_all_product(){
                                                         <div class='card-body'>
                                                             <h5 class='card-title'>$product_title</h5>
                                                             <p class='card-text'>$product_description</p>
-                                                            <p class='card-text'>Price$product_price/-</p>
+                                                            <p class='card-text'>Price$formatted_price;/-</p>
                                                         </div>
                                                         <div class='card-body'>
                                                         <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
@@ -161,6 +164,7 @@ function get_all_product(){
                                                     $product_image2=$row['product_image2'];
                                                     $product_image3=$row['product_image3'];
                                                     $product_price=$row['product_price'];
+                                                    $formatted_price=number_format($product_price);
                                                     // $date=$row['date'];
                                                     // $status=$row['status'];
                                                     echo "<div class='col-md-4 mb-3'>
@@ -169,7 +173,7 @@ function get_all_product(){
                                                         <div class='card-body'>
                                                             <h5 class='card-title'>$product_title</h5>
                                                             <p class='card-text'>$product_description</p>
-                                                            <p class='card-text'>Price$product_price/-</p>
+                                                            <p class='card-text'>Price$formatted_price;/-</p>
                                                         </div>
                                                         <div class='card-body'>
                                                         <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
@@ -241,6 +245,7 @@ function get_all_product(){
                             $product_image2=$row['product_image2'];
                             $product_image3=$row['product_image3'];
                             $product_price=$row['product_price'];
+                            $formatted_price=number_format($product_price);
                             // $date=$row['date'];
                             // $status=$row['status'];
                             echo "<div class='col-md-4 mb-3'>
@@ -249,7 +254,7 @@ function get_all_product(){
                                 <div class='card-body'>
                                     <h5 class='card-title'>$product_title</h5>
                                     <p class='card-text'>$product_description</p>
-                                    <p class='card-text'>Price$product_price/-</p>
+                                    <p class='card-text'>Price$formatted_price;/-</p>
                                 </div>
                                 <div class='card-body'>
                                 <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
@@ -286,6 +291,7 @@ function viewdetails(){
                         $product_image2=$row['product_image2'];
                         $product_image3=$row['product_image3'];
                         $product_price=$row['product_price'];
+                        $formatted_price=number_format($product_price);
                         // $date=$row['date'];
                         // $status=$row['status'];
                         echo "<div class='col-md-4 mb-3'>
@@ -294,7 +300,7 @@ function viewdetails(){
                             <div class='card-body'>
                                 <h5 class='card-title'>$product_title</h5>
                                 <p class='card-text'>$product_description</p>
-                                <p class='card-text'>Price$product_price/-</p>
+                                <p class='card-text'>Price$formatted_price;/-</p>
                             </div>
                             <div class='card-body'>
                             <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
@@ -394,14 +400,16 @@ function cart_item(){
     
         while ($row = mysqli_fetch_array($result)) {
             $product_id = $row['product_id'];
-            $quantity = $row['quantity'];
+            //$quantity = $row['quantity'];
     
             $select_products = "SELECT * FROM products WHERE product_id='$product_id'";
             $result_products = mysqli_query($con, $select_products);
     
             while ($row_product_price = mysqli_fetch_array($result_products)) {
-                $product_price = (int) str_replace(',', '', $row_product_price['product_price']);
-                $total += $product_price * $quantity; // Calculate total price for each item
+                $product_price = array($row_product_price['product_price']);
+                $product_value = array_sum($product_price);
+                $total += $product_value; // Calculate total price for each item
+                
             }
         }
     
