@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 // connect filr
 include('includes/connect.php');
 include('functions/common_function.php');
-
+session_start();
 ?>
 <!doctype html>
 <html lang="en">
@@ -43,7 +43,7 @@ include('functions/common_function.php');
                     <a class="nav-link" href="display_all.php">Products</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
+                    <a class="nav-link" href="./user_area/user_registration.php">Register</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
@@ -72,8 +72,14 @@ include('functions/common_function.php');
                     <li class="nav-item">
                         <a class="nav-link" href="#">Welcome Guest</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
+                    <li class="nav-item"><?php
+                        if(!isset($_SESSION['username'])){
+                            echo"<a class='nav-link' href='./user_area/user_login.php'>Login</a>";
+                        } else{
+                            echo"<a class='nav-link' href='user_logout.php'>Logout</a>";
+                        }
+                        ?>
+                        
                     </li>
                 </ul>
             </div>
@@ -213,7 +219,7 @@ if (isset($_POST['updatecart'])) {
                     // Display subtotal with formatted total amount
                     echo "<h4 class='px-3'>Subtotal:<strong class='text-info'>" . number_format($total) . "/-</strong></h4>
                           <a href='index.php' class='btn btn-info mx-2 px-3'>Continue Shopping</a>
-                          <a href='checkout.php' class='btn btn-secondary mx-2 px-3'>Checkout</a>";
+                          <a href='user_area/checkout.php' class='btn btn-secondary mx-2 px-3'>Checkout</a>";
                 } else {
                     // Display only 'Continue Shopping' link if cart is empty
                     echo "<a href='index.php' class='btn btn-info mx-2 px-3'>Continue Shopping</a>";
