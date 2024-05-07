@@ -2,6 +2,7 @@
 // connect filr
 include('includes/connect.php');
 include('functions/common_function.php');
+session_start();
 ?>
 <!doctype html>
 <html lang="en">
@@ -12,6 +13,11 @@ include('functions/common_function.php');
     <link rel="stylesheet" href="./style/style.css" class="logo">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <style>
+        body{
+            overflow-x: hidden;
+        }
+    </style>
   </head>
   <body>
     <!-- navbar -->
@@ -32,13 +38,13 @@ include('functions/common_function.php');
                     <a class="nav-link" href="display_all.php">Products</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
+                    <a class="nav-link" href="./user_area/user_registration.php">Register</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="uil uil-shopping-cart-alt"></i><sup><?php cart_item(); ?></sup></a>
+                    <a class="nav-link" href="cart.php"><i class="uil uil-shopping-cart-alt"></i><sup><?php cart_item(); ?></sup></a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">Total Price: <?php total_cart_price(); ?>/-</a>
@@ -61,8 +67,14 @@ include('functions/common_function.php');
                     <li class="nav-item">
                         <a class="nav-link" href="#">Welcome Guest</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Login</a>
+                    <li class="nav-item"><?php
+                        if(!isset($_SESSION['username'])){
+                            echo"<a class='nav-link' href='./user_area/user_login.php'>Login</a>";
+                        } else{
+                            echo"<a class='nav-link' href='user_logout.php'>Logout</a>";
+                        }
+                        ?>
+                        
                     </li>
                 </ul>
             </div>
