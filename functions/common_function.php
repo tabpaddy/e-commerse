@@ -2,7 +2,7 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', true);
-include('./includes/connect.php');
+// include('./includes/connect.php');
 
 // getting products
 function getproduct(){
@@ -35,7 +35,7 @@ function getproduct(){
                                 <div class='card-body'>
                                     <h5 class='card-title'>$product_title</h5>
                                     <p class='card-text'>$product_description</p>
-                                    <p class='card-text'>Price$formatted_price;/-</p>
+                                    <p class='card-text'>Price$formatted_price/-</p>
                                 </div>
                                 <div class='card-body'>
                                     <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
@@ -81,7 +81,7 @@ function get_all_product(){
                                 <div class='card-body'>
                                     <h5 class='card-title'>$product_title</h5>
                                     <p class='card-text'>$product_description</p>
-                                    <p class='card-text'>Price$formatted_price;/-</p>
+                                    <p class='card-text'>Price$formatted_price/-</p>
                                 </div>
                                 <div class='card-body'>
                                 <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
@@ -129,7 +129,7 @@ function get_all_product(){
                                                         <div class='card-body'>
                                                             <h5 class='card-title'>$product_title</h5>
                                                             <p class='card-text'>$product_description</p>
-                                                            <p class='card-text'>Price$formatted_price;/-</p>
+                                                            <p class='card-text'>Price$formatted_price/-</p>
                                                         </div>
                                                         <div class='card-body'>
                                                         <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
@@ -173,7 +173,7 @@ function get_all_product(){
                                                         <div class='card-body'>
                                                             <h5 class='card-title'>$product_title</h5>
                                                             <p class='card-text'>$product_description</p>
-                                                            <p class='card-text'>Price$formatted_price;/-</p>
+                                                            <p class='card-text'>Price$formatted_price/-</p>
                                                         </div>
                                                         <div class='card-body'>
                                                         <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
@@ -254,7 +254,7 @@ function get_all_product(){
                                 <div class='card-body'>
                                     <h5 class='card-title'>$product_title</h5>
                                     <p class='card-text'>$product_description</p>
-                                    <p class='card-text'>Price$formatted_price;/-</p>
+                                    <p class='card-text'>Price$formatted_price/-</p>
                                 </div>
                                 <div class='card-body'>
                                 <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
@@ -300,7 +300,7 @@ function viewdetails(){
                             <div class='card-body'>
                                 <h5 class='card-title'>$product_title</h5>
                                 <p class='card-text'>$product_description</p>
-                                <p class='card-text'>Price$formatted_price;/-</p>
+                                <p class='card-text'>Price$formatted_price/-</p>
                             </div>
                             <div class='card-body'>
                             <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
