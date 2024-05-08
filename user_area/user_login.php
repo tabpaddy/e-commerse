@@ -1,5 +1,6 @@
 <?php
 include("../includes/connect.php");
+include('functions/common_function.php');
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

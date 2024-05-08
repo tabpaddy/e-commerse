@@ -1,7 +1,7 @@
 <?php
 // connect filr
 include('../includes/connect.php');
-include("../functions/common_function.php");
+// include("../functions/common_function.php");
 session_start(); //only when this page is active the session will start
 ?>
 <!doctype html>
@@ -10,9 +10,9 @@ session_start(); //only when this page is active the session will start
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ecommerce website Checkout page</title>
-    <link rel="stylesheet" href="./style/style.css" class="logo">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="../style/style.css" class="logo">
   </head>
   <body>
     <!-- navbar -->
@@ -20,7 +20,7 @@ session_start(); //only when this page is active the session will start
         <!-- first child -->
         <nav class="navbar navbar-expand-lg bg-info">
             <div class="container-fluid">
-                <img src="./assest/logo1.png"  alt="" class="logo mx-3"> 
+                <img src="../assest/logo1.png"  alt="" class="logo mx-3"> 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -58,7 +58,13 @@ session_start(); //only when this page is active the session will start
                 <!-- <span class="navbar-brand mb-0 h1">Navbar</span> -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Welcome Guest</a>
+                    <?php
+                        if(!isset($_SESSION['username'])){
+                            echo"<a class='nav-link' href='#'>Welcome Guest</a>";
+                        }else{
+                            echo"<a class='nav-link' href='#'>Welcome ".$_SESSION['username']. "</a>";
+                        }
+                        ?>
                     </li>
                     <li class="nav-item"><?php
                         if(!isset($_SESSION['username'])){
@@ -87,7 +93,7 @@ session_start(); //only when this page is active the session will start
                     if(!isset($_SESSION['username'])){
                         include('user_login.php');
                     }else{
-                        include('payment.php');
+                        include_once('payment.php');
                     }
                     ?>
                 </div>
