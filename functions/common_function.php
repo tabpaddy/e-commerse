@@ -418,4 +418,32 @@ function cart_item(){
     
         echo $formattedTotal;
     }
+
+    // get user order details
+    function get_user_order_details(){
+        // echo "hello word";
+        global $con;
+        $username= $_SESSION['username'];
+        $get_details="SELECT * FROM user_table WHERE username='$username'";
+        $result_query = mysqli_query($con, $get_details);
+        while($row_query=mysqli_fetch_array($result_query)){
+            $user_id=$row_query['user_id'];
+            if(!isset($_GET['edit_account'])){
+            if(!isset($_GET['user_orders'])){
+            if(!isset($_GET['delete_account'])){
+                $get_orders="SELECT * FROM user_order WHERE user_id = $user_id AND order_status='pending'";
+                $result_orders_query=mysqli_query($con, $get_orders);
+                $row_count=mysqli_num_rows($result_orders_query);
+                if($row_count){
+                    echo "<h3 class='text-center text-success mt-5 mb-2'>You have <span class='text-danger'>$row_count</span> pending others</h3>";
+                    echo "<p class='text-center'><a href='profile.php?user_orders' class='text-dark'>Order Details</a></p>";
+                }else{
+                    echo "<h3 class='text-center text-success mt-5 mb-2'>You have zero pending others</h3>";
+                    echo "<p class='text-center'><a href='../index.php' class='text-dark'>Explore Product</a></p>";
+                }
+            }
+            }
+            }
+        }
+    }
 ?>
