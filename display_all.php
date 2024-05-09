@@ -38,7 +38,13 @@ session_start();
                     <a class="nav-link" href="display_all.php">Products</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="./user_area/user_registration.php">Register</a>
+                    <?php
+                    if(!isset($_SESSION['username'])){
+                            echo"<a class='nav-link' href='./user_area/user_registration.php'>Register</a>";
+                        }else{
+                            echo"<a class='nav-link' href='./user_area/profile.php'>My Account</a>";
+                        }
+                        ?>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
@@ -65,7 +71,13 @@ session_start();
                 <!-- <span class="navbar-brand mb-0 h1">Navbar</span> -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Welcome Guest</a>
+                    <?php
+                        if(!isset($_SESSION['username'])){
+                            echo"<a class='nav-link' href='#'>Welcome Guest</a>";
+                        }else{
+                            echo"<a class='nav-link' href='#'>Welcome ".$_SESSION['username']. "</a>";
+                        }
+                        ?>
                     </li>
                     <li class="nav-item"><?php
                         if(!isset($_SESSION['username'])){
