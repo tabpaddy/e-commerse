@@ -1,6 +1,6 @@
 <?php
 include("../includes/connect.php");
-include('functions/common_function.php');
+include('../functions/common_function.php');
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -82,11 +82,12 @@ if (session_status() === PHP_SESSION_NONE) {
             if(password_verify($user_password, $row_data['user_password'])){
                 // echo "<script>alert('Login successful')</script>";
                 if($row_count==1 and $row_count_cart==0){
-                    //the user is login and item in the cart
+                    //the user is login and theres no item in the cart
                     $_SESSION['username']=$user_username;
                     echo "<script>alert('Login successful')</script>";
                     echo "<script>window.open('profile.php', '_self')</script>";
                 }else{
+                     //the user is login and there is item in the cart
                     $_SESSION['username']=$user_username;
                     echo "<script>alert('Login successful')</script>";
                     echo "<script>window.open('payment.php', '_self')</script>";
