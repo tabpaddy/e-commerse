@@ -43,11 +43,11 @@ if($quantity==0){
     $subTotal=$total_price*$quantity;
 }
 
-// echo $quantity;
+// user order;
 $insert_orders= "INSERT INTO user_order (user_id, amount_due, invoice_number, total_products, order_date, order_status) VALUES ($user_id, $subTotal, $invoice_number, $count_products, NOW(), '$status')";
 $result_query=mysqli_query($con, $insert_orders);
 
-
+//issue
 //orders pending
 $insert_pending_orders= "INSERT INTO order_pending (user_id, invoice_number, product_id, quantity, order_status) VALUES ($user_id, $invoice_number, $product_id, $quantity, '$status')";
 $result_pending_others=mysqli_query($con, $insert_pending_orders);
