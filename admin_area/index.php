@@ -1,3 +1,10 @@
+<?php
+// connect filr
+include('../includes/connect.php');
+include('../functions/common_function.php');
+// session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +47,7 @@
                 <button class="my-3 border-0"><a href="./include/insert_product.php" class="nav-link text-light bg-info my-1 px-2">
                     Insert Products
                 </a></button>
-                <button class=" border-0"><a href="" class="nav-link text-light bg-info my-1 px-2">
+                <button class=" border-0"><a href="index.php?view_product" class="nav-link text-light bg-info my-1 px-2">
                     View Products
                 </a></button>
                 <button class=" border-0"><a href="index.php?insert_category" class="nav-link text-light bg-info my-1 px-2">
@@ -82,13 +89,19 @@
             if(isset($_GET['insert_brand'])){
             include("include/insert_brands.php");
         }
+            if(isset($_GET['view_product'])){
+            include("include/view_product.php");
+        }
+            if(isset($_GET['edit_products'])){
+            include("include/edit_products.php");
+        }
 
             ?>
         </div>
                     <!-- last child -->
 
-    <footer class="bg-info p-2 text-center footer">
-        <p>All rights reserved &copy; Designed by Praise-2024</p>
+    <footer class="bg-info p-2 text-center">
+        <p>All rights reserved &copy; Designed by Praise-20<?php echo date("y") ?></p>
     </footer>
     </div>
     
