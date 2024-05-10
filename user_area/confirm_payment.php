@@ -12,6 +12,23 @@ if(isset($_GET['order_id'])){
     $invoice_number=$row_fetch['invoice_number'];
     $amount_due=$row_fetch['amount_due'];
 }
+
+if(isset($_POST['confirm_payment'])){
+   $invoice_number=$_POST['invoice_number']; 
+   $amount_number=$_POST['amount_number']; 
+   $payment_mode=$_POST['payment_mode']; 
+   $insert_query="INSERT INTO user_payment (order_id, invoice_number, amount, payment_mode) VALUES ($order_id, $invoice_number, $amount_number, '$payment_mode')";
+   $payment_result = mysqli_query($con, $insert_query);
+    if($payment_result){
+        $update_orders="UPDATE user_order SET order_status='Complete' WHERE order_id=$order_id";
+        $update_result=mysqli_query($con, $update_orders);
+        if($update_result){
+        // echo "<h3 class='text-center text-light'>Successfully completed the payment</h3>";
+        echo "<script>window.open('./profile.php?user_orders','_self')</script>";
+    }
+    }
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +52,7 @@ if(isset($_GET['order_id'])){
             </div>
             <div class="form-outline my-4 text-center">
                 <select name="payment_mode" class="form-select w-50 m-auto">
-                    <option>Select payment mode</option>
+                    <option disabled>Select payment mode</option>
                     <option>upi</option>
                     <option>Online banking</option>
                     <option>paypal</option>
