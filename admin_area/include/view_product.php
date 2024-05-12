@@ -54,8 +54,8 @@
                     ?>
                 </td>
                 <td><?php echo"$status"?></td>
-                <td><a href="index.php?edit_products" class='text-dark'><i class='uil uil-edit'></i></a></td>
-                <td><a href="" class='text-dark'><i class='uil uil-trash'></i></a></td>
+                <td><a href="index.php?edit_products=<?php echo $product_id ?>" class='text-dark'><i class='uil uil-edit'></i></a></td>
+                <td><a href="index.php?delete_products=<?php echo $product_id ?>" class='text-dark'><i class='uil uil-trash'></i></a></td>
             </tr>
             <?php
             }
