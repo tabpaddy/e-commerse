@@ -53,13 +53,13 @@ include('../functions/common_function.php');
                 <button class=" border-0"><a href="index.php?insert_category" class="nav-link text-light bg-info my-1 px-2">
                      Insert Categories
                 </a></button>
-                <button class=" border-0"><a href="" class="nav-link text-light bg-info my-1 px-2">
+                <button class=" border-0"><a href="index.php?view_category" class="nav-link text-light bg-info my-1 px-2">
                      View Categories
                 </a></button>
                 <button class=" border-0"><a href="index.php?insert_brand" class="nav-link text-light bg-info my-1 px-2">
                     Insert Brands
                 </a></button>
-                <button class=" border-0"><a href="" class="nav-link text-light bg-info my-1 px-2">
+                <button class=" border-0"><a href="index.php?view_brand" class="nav-link text-light bg-info my-1 px-2">
                     View Brands
                 </a></button>
                 <button class=" border-0"><a href="" class="nav-link text-light bg-info my-1 px-2">
@@ -94,6 +94,27 @@ include('../functions/common_function.php');
         }
             if(isset($_GET['edit_products'])){
             include("include/edit_products.php");
+        }
+            if(isset($_GET['delete_products'])){
+            include("include/delete_products.php");
+        }
+            if(isset($_GET['view_category'])){
+            include("include/view_category.php");
+        }
+            if(isset($_GET['edit_category'])){
+            include("include/edit_category.php");
+        }
+            if(isset($_GET['delete_category'])){
+            include("include/delete_category.php");
+        }
+            if(isset($_GET['view_brand'])){
+            include("include/view_brand.php");
+        }
+            if(isset($_GET['edit_brand'])){
+            include("include/edit_brand.php");
+        }
+            if(isset($_GET['delete_brand'])){
+            include("include/delete_brand.php");
         }
 
             ?>
