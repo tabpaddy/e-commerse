@@ -262,7 +262,7 @@ if (isset($_POST['updatecart'])) {
                 //    echo $remove_item = remove_cart_item();
                 function remove_cart_item(){
                     global $con;
-                    
+                    if(isset($_POST['removecart'])){
                     // Check if 'remove' key exists in $_POST and is an array
                     if(isset($_POST['remove']) && is_array($_POST['remove'])){
                         foreach($_POST['remove'] as $removeid){
@@ -285,6 +285,7 @@ if (isset($_POST['updatecart'])) {
                         // $_POST['remove'] is not set or not an array
                         // echo "No items selected for removal.";
                     }
+                }
                 }
                 
                 // Call the function and store the result in $remove_item
